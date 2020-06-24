@@ -18,6 +18,19 @@ class LinkedList:
         self.head = None #stores a node that corresponds to our first node in list
         self.tail = None # stores a node that is the end of the list
 
+    #return all values om the list
+    def __str__(self):
+        output = ''
+        current_node = self.head #create tracker node variable
+
+        while current_node is not None: #loop unitl it's none
+
+            output += f'{current_node.value} -> '
+
+            current_node = current_node.next_node #update tracker node to the next node
+            
+        return output
+
     def add_to_head(self, value):
         #create a node to add
         new_node = Node(value)
@@ -66,14 +79,18 @@ linked_list = LinkedList()
 
 linked_list.add_to_head(0)
 linked_list.add_to_tail(1)
+linked_list.add_to_tail(2)
+linked_list.add_to_tail(3)
 
-print(f'does our LL contain 0? {linked_list.contains(0)}')
-print(f'does our LL contain 1? {linked_list.contains(1)}')
-print(f'does our LL contain 2? {linked_list.contains(2)}')
+print(linked_list)
 
-linked_list.add_to_head(2)
-print(f'Head value: {linked_list.head.value}')
-linked_list.add_to_head(5)
-print(f'Head value: {linked_list.head.value}')
-linked_list.remove_head()
-print(f'Head value: {linked_list.head.value}')
+# print(f'does our LL contain 0? {linked_list.contains(0)}')
+# print(f'does our LL contain 1? {linked_list.contains(1)}')
+# print(f'does our LL contain 2? {linked_list.contains(2)}')
+
+# linked_list.add_to_head(2)
+# print(f'Head value: {linked_list.head.value}')
+# linked_list.add_to_head(5)
+# print(f'Head value: {linked_list.head.value}')
+# linked_list.remove_head()
+# print(f'Head value: {linked_list.head.value}')

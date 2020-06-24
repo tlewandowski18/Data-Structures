@@ -70,17 +70,18 @@ class LinkedList:
 #         self.storage = []
 
 #     def __len__(self):
-#         return self.size
+#         return len(self.storage)
 
 #     def push(self, value):
-#         self.storage.append(value)
 #         self.size += 1
+#         self.storage.insert(0, value)
 
 #     def pop(self):
-#         if self.size == 0:
+#         if len(self.storage) == 0:
 #             return None
 #         self.size -= 1
-#         return self.storage.pop()
+#         node = self.storage.pop(0)
+#         return node
 
 
 class Stack:
