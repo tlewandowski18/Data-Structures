@@ -50,12 +50,18 @@ class DoublyLinkedList:
     def add_to_head(self, value):
         new_node = ListNode(value)
         self.length += 1
+        #if list is currently empty
         if self.head is None and self.tail is None:
+            #set head and tail to the new node
             self.head = new_node
             self.tail = new_node
+        #if list contains other nodes
         else:
+            #create previous link between new head and old head
             self.head.prev = new_node
+            #create next link between new head and old head
             new_node.next = self.head
+            #set new head
             self.head = new_node
 
     """Removes the List's current head node, making the
@@ -114,20 +120,31 @@ class DoublyLinkedList:
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
+        #the list is empty -> do nothing
         if self.head is None and self.tail is None:
             return
         self.length -= 1
+        #the list only has one node -> set head and tail nodes to "None"
         if self.head == self.tail:
             self.head = None
             self.tail = None
+        #the passed node is the head node
         elif self.head == node:
+            #set second node in list as new head
             self.head = node.next
+            #set "prev" link of new head to "None"
             self.head.prev = None
+        #the passed node is the tail node
         elif self.tail == node:
+            #set second last node in list as new tail
             self.tail = node.prev
+            #set "next" link of new tail to "None"
             self.tail.next = None
+        #the passed node is one of the other nodes in the list
         else:
+            #set "next" link between passed node's "prev" node and passed node's "next" node 
             node.prev.next = node.next
+            #set "prev" link between passed node's "prev" node and passed node's "next" node 
             node.next.prev = node.prev
         
     """Returns the highest value currently in the list"""
