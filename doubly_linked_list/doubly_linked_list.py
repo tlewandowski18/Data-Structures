@@ -48,41 +48,113 @@ class DoublyLinkedList:
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
     def add_to_head(self, value):
-        pass
+        new_node = ListNode(value)
+        self.length += 1
+        #if list is currently empty
+        if self.head is None and self.tail is None:
+            #set head and tail to the new node
+            self.head = new_node
+            self.tail = new_node
+        #if list contains other nodes
+        else:
+            #create previous link between new head and old head
+            self.head.prev = new_node
+            #create next link between new head and old head
+            new_node.next = self.head
+            #set new head
+            self.head = new_node
 
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
     def remove_from_head(self):
-        pass
+        if self.head is None:
+            return None
+        head_value = self.head.value
+        self.delete(self.head)
+        return head_value
+
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly."""
     def add_to_tail(self, value):
-        pass
+        new_node = ListNode(value)
+        self.length += 1
+        if self.head is None and self.tail is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
 
     """Removes the List's current tail node, making the 
     current tail's previous node the new tail of the List.
     Returns the value of the removed Node."""
     def remove_from_tail(self):
-        pass
+        if not self.tail:
+            return None
+        tail_value = self.tail.value
+        self.delete(self.tail)
+        return tail_value
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
-        pass
+        if node is self.head:
+            return
+        old_value = node.value
+        self.delete(node)
+        self.add_to_head(old_value)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
-        pass
+        if node is self.tail:
+            return
+        old_value = node.value
+        self.delete(node)
+        self.add_to_tail(old_value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
-        pass
+        #the list is empty -> do nothing
+        if self.head is None and self.tail is None:
+            return
+        self.length -= 1
+        #the list only has one node -> set head and tail nodes to "None"
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+        #the passed node is the head node
+        elif self.head == node:
+            #set second node in list as new head
+            self.head = node.next
+            #set "prev" link of new head to "None"
+            self.head.prev = None
+        #the passed node is the tail node
+        elif self.tail == node:
+            #set second last node in list as new tail
+            self.tail = node.prev
+            #set "next" link of new tail to "None"
+            self.tail.next = None
+        #the passed node is one of the other nodes in the list
+        else:
+            #set "next" link between passed node's "prev" node and passed node's "next" node 
+            node.prev.next = node.next
+            #set "prev" link between passed node's "prev" node and passed node's "next" node 
+            node.next.prev = node.prev
         
     """Returns the highest value currently in the list"""
     def get_max(self):
-        pass
+        if not self.head:
+            return None
+        max_value = self.head.value
+        current = self.head
+        while current:
+            if current.value > max_value:
+                max_value = current.value
+            current = current.next
+        return max_value
